@@ -3,6 +3,8 @@
 <head>
     <title>{{ $.Site.Title }}</title>
 
+    {{ block "head" . }}{{ end }}
+
     {{ $opts := dict "transpiler" "dartsass" "targetPath" "css/theme.css" }}
     {{ with resources.Get "sass/theme.scss" | toCSS $opts | minify | fingerprint }}
         <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
