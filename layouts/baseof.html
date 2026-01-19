@@ -1,7 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>{{ $.Site.Title }}</title>
+
+    <noscript>
+        <style>
+            body {
+                opacity: 1 !important;
+            }
+        </style>
+    </noscript>
+
+    {{ $baseopts := dict "transpiler" "dartsass" "targetPath" "css/base.css" }}
+    {{ with resources.Get "sass/base.scss" | toCSS $baseopts | minify | fingerprint }}
+        <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+    {{ end }}
 
     {{ block "head" . }}{{ end }}
 
@@ -14,6 +30,13 @@
     <main>
         {{ block "main" . }}{{ end }}
     </main>
+
     {{ block "body" . }}{{ end }}
+
+    <script>
+        window.addEventListener('load', function() {
+            document.body.classList.add('loaded');
+        });
+    </script>
 </body>
 </html>

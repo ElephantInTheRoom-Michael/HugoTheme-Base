@@ -1,0 +1,16 @@
+// CSS reset
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// Wait to show content until fully ready
+body {
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+
+  &.loaded {
+    opacity: 1;
+  }
+}
